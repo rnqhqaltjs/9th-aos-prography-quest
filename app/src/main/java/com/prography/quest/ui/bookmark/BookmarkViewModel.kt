@@ -20,7 +20,7 @@ class BookmarkViewModel @Inject constructor(
     val getRandomResult: LiveData<List<PhotosResponseItem>> get() = _getRandomResult
 
     fun getRandomPhoto() = viewModelScope.launch {
-        val response = randomPhotoRepository.getRandomPhoto(1)
+        val response = randomPhotoRepository.getRandomPhoto(5)
         if (response.isSuccessful) {
             response.body()?.let { body ->
                 _getRandomResult.postValue(body)
