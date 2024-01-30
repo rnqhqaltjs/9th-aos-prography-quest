@@ -3,23 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/HomeFragment">
 
     <fragment
-        android:id="@+id/navigation_home"
+        android:id="@+id/HomeFragment"
         android:name="com.prography.quest.ui.home.HomeFragment"
-        android:label="@string/title_home"
+        android:label="@string/fragment_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.prography.quest.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/BookmarkFragment"
+        android:name="com.prography.quest.ui.bookmark.BookmarkFragment"
+        android:label="@string/fragment_bookmark"
+        tools:layout="@layout/fragment_bookmark" />
 
-    <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.prography.quest.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
 </navigation>
