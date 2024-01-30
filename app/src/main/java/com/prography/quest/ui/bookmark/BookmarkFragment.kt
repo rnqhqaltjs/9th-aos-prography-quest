@@ -42,7 +42,7 @@ class BookmarkFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        randomPhotoAdapter = RandomPhotoAdapter()
+        randomPhotoAdapter = RandomPhotoAdapter(bookmarkViewModel)
         binding.RandomPhotoRecyclerView.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
