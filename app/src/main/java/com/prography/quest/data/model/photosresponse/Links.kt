@@ -1,4 +1,4 @@
-package com.prography.quest.data.model
+package com.prography.quest.data.model.photosresponse
 
 
 import com.squareup.moshi.Json
