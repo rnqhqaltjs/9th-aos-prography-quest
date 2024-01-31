@@ -1,9 +1,13 @@
-package com.prography.quest.data.model
+package com.prography.quest.data.model.photosresponse
 
 
+import android.os.Parcelable
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.RawValue
 
+@Parcelize
 @JsonClass(generateAdapter = true)
 data class PhotosResponseItem(
     @field:Json(name = "blur_hash")
@@ -13,9 +17,9 @@ data class PhotosResponseItem(
     @field:Json(name = "created_at")
     val createdAt: String,
     @field:Json(name = "current_user_collections")
-    val currentUserCollections: List<CurrentUserCollection>,
+    val currentUserCollections: @RawValue List<CurrentUserCollection>,
     @field:Json(name = "description")
-    val description: String? = null,
+    val description: String?,
     @field:Json(name = "height")
     val height: Int,
     @field:Json(name = "id")
@@ -25,13 +29,13 @@ data class PhotosResponseItem(
     @field:Json(name = "likes")
     val likes: Int,
     @field:Json(name = "links")
-    val links: Links,
+    val links: @RawValue Links,
     @field:Json(name = "updated_at")
     val updatedAt: String,
     @field:Json(name = "urls")
-    val urls: Urls,
+    val urls: @RawValue Urls,
     @field:Json(name = "user")
-    val user: User,
+    val user: @RawValue User,
     @field:Json(name = "width")
     val width: Int
-)
+) : Parcelable
