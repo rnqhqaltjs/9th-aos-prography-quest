@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.prography.quest.databinding.FragmentHomeBinding
+import com.prography.quest.util.hide
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -20,6 +21,7 @@ class HomeFragment : Fragment() {
 
     private val homeViewModel: HomeViewModel by viewModels()
     private lateinit var photoAdapter: PhotoAdapter
+    private lateinit var bookmarkAdapter: BookmarkAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,10 +36,19 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         homeViewModel.getPhotos()
+
         setupRecyclerView()
 
-        homeViewModel.getResult.observe(viewLifecycleOwner) {
+        homeViewModel.photos.observe(viewLifecycleOwner) {
             photoAdapter.submitList(it)
+        }
+
+        homeViewModel.bookmarkPhoto.observe(viewLifecycleOwner) {
+            bookmarkAdapter.submitList(it)
+            if(bookmarkAdapter.itemCount<=0) {
+                binding.bookmarkHeader.hide(requireActivity())
+                binding.BookmarkRecyclerView.hide(requireActivity())
+            }
         }
     }
 
@@ -47,6 +58,13 @@ class HomeFragment : Fragment() {
             setHasFixedSize(true)
             layoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
             adapter = photoAdapter
+        }
+
+        bookmarkAdapter = BookmarkAdapter()
+        binding.BookmarkRecyclerView.apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            adapter = bookmarkAdapter
         }
     }
 
