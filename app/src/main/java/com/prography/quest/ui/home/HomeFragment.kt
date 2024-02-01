@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
@@ -15,8 +17,11 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.prography.quest.data.model.BookmarkEntity
 import com.prography.quest.databinding.FragmentHomeBinding
 import com.prography.quest.ui.randomphoto.RandomPhotoFragmentDirections
+import com.prography.quest.util.UiState
 import com.prography.quest.util.hide
+import com.prography.quest.util.show
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -44,17 +49,42 @@ class HomeFragment : Fragment() {
         homeViewModel.getPhotos()
 
         setupRecyclerView()
+        observe()
+    }
 
-        homeViewModel.photos.observe(viewLifecycleOwner) {
-            photoAdapter.submitList(it)
+    private fun observe() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            homeViewModel.photos.collectLatest {
+                when (it) {
+                    is UiState.Loading -> {
+                        binding.sflSample.startShimmer()
+                        binding.sflSample.show(requireActivity())
+                    }
+
+                    is UiState.Success -> {
+                        delay(1000)
+                        photoAdapter.submitList(it.data)
+                        binding.sflSample.stopShimmer()
+                        binding.sflSample.hide(requireActivity())
+                    }
+
+                    is UiState.Failure -> {
+                        binding.sflSample.stopShimmer()
+                        binding.sflSample.hide(requireActivity())
+                    }
+                }
+            }
         }
 
         lifecycleScope.launch {
-            homeViewModel.bookmarkPhoto.collectLatest {
-                bookmarkAdapter.submitList(it)
-                if (bookmarkAdapter.itemCount <= 0) {
-                    binding.bookmarkHeader.hide(requireActivity())
-                    binding.BookmarkRecyclerView.hide(requireActivity())
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                homeViewModel.bookmarkPhoto.collect {
+                    delay(1000)
+                    bookmarkAdapter.submitList(it)
+                    if (bookmarkAdapter.itemCount <= 0) {
+                        binding.bookmarkHeader.hide(requireActivity())
+                        binding.BookmarkRecyclerView.hide(requireActivity())
+                    }
                 }
             }
         }
