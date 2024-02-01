@@ -1,10 +1,8 @@
 package com.prography.quest.data.repository
 
 import androidx.lifecycle.LiveData
-import com.prography.quest.data.db.BookmarkDao
 import com.prography.quest.data.model.BookmarkEntity
-import com.prography.quest.data.model.PhotosResponseItem
-import retrofit2.Response
+import kotlinx.coroutines.flow.Flow
 
 interface BookmarkRepository {
 
@@ -12,5 +10,9 @@ interface BookmarkRepository {
 
     suspend fun deleteBookmark(bookmarkEntity: BookmarkEntity)
 
-    fun getBookmarkPhoto(): LiveData<List<BookmarkEntity>>
+    suspend fun updateBookmark(bookmarkEntity: BookmarkEntity)
+
+    fun getBookmarkPhoto(): Flow<List<BookmarkEntity>>
+
+    fun getBookmarkDetail(id: String): BookmarkEntity
 }

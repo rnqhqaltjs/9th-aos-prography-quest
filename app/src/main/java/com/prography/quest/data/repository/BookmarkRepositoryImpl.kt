@@ -3,6 +3,7 @@ package com.prography.quest.data.repository
 import androidx.lifecycle.LiveData
 import com.prography.quest.data.db.BookmarkDatabase
 import com.prography.quest.data.model.BookmarkEntity
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class BookmarkRepositoryImpl @Inject constructor(
@@ -17,7 +18,17 @@ class BookmarkRepositoryImpl @Inject constructor(
         db.bookmarkDao().deleteBookmark(bookmarkEntity)
     }
 
-    override fun getBookmarkPhoto(): LiveData<List<BookmarkEntity>> {
+    override suspend fun updateBookmark(bookmarkEntity: BookmarkEntity) {
+        db.bookmarkDao().updateBookmark(bookmarkEntity)
+    }
+
+    override fun getBookmarkPhoto(): Flow<List<BookmarkEntity>> {
         return db.bookmarkDao().getBookmarkPhoto()
     }
+
+    override fun getBookmarkDetail(id: String): BookmarkEntity {
+        return db.bookmarkDao().getBookmarkDetail(id)
+    }
+
+
 }

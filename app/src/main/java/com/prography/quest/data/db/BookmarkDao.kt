@@ -6,7 +6,9 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import com.prography.quest.data.model.BookmarkEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface BookmarkDao {
@@ -17,6 +19,12 @@ interface BookmarkDao {
     @Delete
     suspend fun deleteBookmark(bookmarkEntity: BookmarkEntity)
 
+    @Update
+    suspend fun updateBookmark(bookmarkEntity: BookmarkEntity)
+
     @Query("SELECT * FROM bookmarks")
-    fun getBookmarkPhoto(): LiveData<List<BookmarkEntity>>
+    fun getBookmarkPhoto(): Flow<List<BookmarkEntity>>
+
+    @Query("SELECT * FROM bookmarks WHERE id = :bookmarkId")
+    fun getBookmarkDetail(bookmarkId: String): BookmarkEntity
 }

@@ -9,6 +9,7 @@ import com.prography.quest.data.model.photosresponse.PhotosResponseItem
 import com.prography.quest.data.repository.BookmarkRepository
 import com.prography.quest.data.repository.PhotosRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -30,5 +31,5 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    val bookmarkPhoto: LiveData<List<BookmarkEntity>> = bookmarkRepository.getBookmarkPhoto()
+    val bookmarkPhoto: Flow<List<BookmarkEntity>> = bookmarkRepository.getBookmarkPhoto()
 }
