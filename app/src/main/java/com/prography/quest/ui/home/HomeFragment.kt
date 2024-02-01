@@ -10,6 +10,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -31,8 +32,8 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val homeViewModel: HomeViewModel by viewModels()
-    private lateinit var photoAdapter: PhotoAdapter
     private lateinit var bookmarkAdapter: BookmarkAdapter
+    private lateinit var photoPagingAdapter: PhotoPagingAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,58 +47,43 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        homeViewModel.getPhotos()
+        homeViewModel.getPhotosPaging()
 
         setupRecyclerView()
         observe()
+        setupLoadState()
+
     }
 
     private fun observe() {
         viewLifecycleOwner.lifecycleScope.launch {
-            homeViewModel.photos.collectLatest {
-                when (it) {
-                    is UiState.Loading -> {
-                        binding.sflSample.startShimmer()
-                        binding.sflSample.show(requireActivity())
-                    }
-
-                    is UiState.Success -> {
-                        delay(1000)
-                        photoAdapter.submitList(it.data)
-                        binding.sflSample.stopShimmer()
-                        binding.sflSample.hide(requireActivity())
-                    }
-
-                    is UiState.Failure -> {
-                        binding.sflSample.stopShimmer()
-                        binding.sflSample.hide(requireActivity())
-                    }
-                }
+            homeViewModel.photosPaging.collectLatest {
+                photoPagingAdapter.submitData(it)
             }
         }
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 homeViewModel.bookmarkPhoto.collect {
-                    delay(1000)
                     bookmarkAdapter.submitList(it)
-                    if (bookmarkAdapter.itemCount <= 0) {
-                        binding.bookmarkHeader.hide(requireActivity())
-                        binding.BookmarkRecyclerView.hide(requireActivity())
-                    }
+
+//                    if (bookmarkAdapter.itemCount <= 0) {
+//                        binding.bookmarkHeader.hide(requireActivity())
+//                        binding.BookmarkRecyclerView.hide(requireActivity())
+//                    }
                 }
             }
         }
     }
 
     private fun setupRecyclerView() {
-        photoAdapter = PhotoAdapter()
+        photoPagingAdapter = PhotoPagingAdapter()
         binding.PhotoRecyclerView.apply {
             setHasFixedSize(true)
             layoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
-            adapter = photoAdapter
+            adapter = photoPagingAdapter
         }
-        photoAdapter.setOnItemClickListener {
+        photoPagingAdapter.setOnItemClickListener {
             val action = HomeFragmentDirections.actionHomeFragmentToDetailPhotoDialog(
                 BookmarkEntity(
                     it.id,
@@ -119,6 +105,27 @@ class HomeFragment : Fragment() {
         bookmarkAdapter.setOnItemClickListener {
             val action = HomeFragmentDirections.actionHomeFragmentToDetailPhotoDialog(it)
             findNavController().navigate(action)
+        }
+    }
+
+    private fun setupLoadState() {
+        photoPagingAdapter.addLoadStateListener { combinedLoadStates ->
+            if(combinedLoadStates.source.refresh is LoadState.Loading) {
+                binding.photoSkeletonUi.startShimmer()
+                binding.photoSkeletonUi.show(requireActivity())
+                binding.PhotoRecyclerView.hide(requireActivity())
+            }
+
+            if(combinedLoadStates.source.refresh is LoadState.NotLoading) {
+                lifecycleScope.launch {
+                    delay(500)
+                    binding.photoSkeletonUi.stopShimmer()
+                    binding.photoSkeletonUi.hide(requireActivity())
+                    binding.PhotoRecyclerView.show(requireActivity())
+                }
+
+            }
+
         }
     }
 
