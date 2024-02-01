@@ -30,8 +30,8 @@
         android:label="@string/detail_photo_dialog"
         tools:layout="@layout/detail_photo_dialog" >
         <argument
-            android:name="photo"
-            app:argType="com.prography.quest.data.model.photosresponse.PhotosResponseItem" />
+            android:name="bookmark"
+            app:argType="com.prography.quest.data.model.BookmarkEntity" />
     </dialog>
 
 </navigation>
