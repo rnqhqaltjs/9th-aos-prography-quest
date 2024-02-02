@@ -12,7 +12,7 @@ Hilt 라이브러리로 각 모듈별로 의존성을 주입하였습니다.
 
 ### 주요 엔티티  
 PhotoResponseItem  
-![image](https://github.com/rnqhqaltjs/9th-aos-prography-quest/assets/86480696/fdd9b2f6-3f74-460f-9e1b-f52322055d00)  
+<img src="https://github.com/rnqhqaltjs/9th-aos-prography-quest/assets/86480696/fdd9b2f6-3f74-460f-9e1b-f52322055d00" width="500" height="400"/>  
 Usplash API의 통신을 받아 이미지와 그외의 정보들을 보여주기 위해 사용합니다.
 
 BookmarkEntity  
