@@ -31,7 +31,6 @@ Paging3 라이브러리와 LoadStateHandle을 이용해서 페이징이 로딩�
 북마크가 완료되면 스낵바로 북마크가 완료되었다는 문구가 표시됩니다.  
 스낵바의 취소를 누르면 방금 북마크한 사진을 취소할 수 있습니다.  
 
-
 ![device-2024-02-03-022447-ezgif com-resize](https://github.com/rnqhqaltjs/9th-aos-prography-quest/assets/86480696/c0e97393-5f1b-44f6-b4c5-d17c6cc43edd)  
 X 버튼을 터치하면 현재 사진을 없애고 다음 사진으로 넘어갑니다.  
 i 버튼을 터치하면 Detail 화면으로 넘어갑니다.
