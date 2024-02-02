@@ -6,7 +6,6 @@
 <img src="https://github.com/rnqhqaltjs/9th-aos-prography-quest/assets/86480696/d26b0ba4-344d-4e7c-a98b-2bda1096108f" width="500" height="400"/>
 
 Hilt 라이브러리로 각 모듈별로 의존성을 주입하였습니다.  
-화면 구성은 하나의 액티비티와 두개의 프래그먼트 하나의 다이얼로그 프래그먼트로 나뉘어집니다.  
 각 화면의 전환과 바텀 네비게이션은 제트팩 네비게이션을 통해 구성하였으며 다른 화면으로 데이터 전달이 필요할경우 SafeArgs를 사용하여 전달합니다.  
 
 
@@ -25,7 +24,7 @@ Paging3 라이브러리와 LoadStateHandle을 이용해서 페이징이 로딩�
 
 
 ## RandomPhoto
-@GET("photos/random")로 무작위 사진을 요청받아 5개의 랜덤한 사진을 표시합니다.  
+무작위 사진을 요청받아 5개의 랜덤한 사진을 표시합니다.  
 
 
 북마크 버튼을 터치하면 다음 사진으로 넘어가고 북마크가 완료됩니다.  
@@ -46,5 +45,8 @@ Room DB에 북마크한 데이터가 저장되어있는지 여부에 따라 북�
 
 ### 해결하지 못한 문제
 
+[device-2024-02-03-020344.webm](https://github.com/rnqhqaltjs/9th-aos-prography-quest/assets/86480696/50bc1ab6-9d39-4406-a427-82bdace9b3da)  
 전체 페이지가 스크롤 되지 않고 Photo를 보여주는 리사이클러뷰만 스크롤 되는 문제
 이 문제를 해결하기 위해 리사이클러뷰의 스크롤을 비활성화 하면 페이징이 로드 되지않고 NestedScrollView를 쓰면 모든 데이터를 한꺼번에 불러오는 문제가 발생합니다.
+
+### 배운점
