@@ -3,7 +3,7 @@
 
 ## 기본적인 구조
 
-<img src="https://github.com/rnqhqaltjs/9th-aos-prography-quest/assets/86480696/d26b0ba4-344d-4e7c-a98b-2bda1096108f" width="600" height="400"/>
+<img src="https://github.com/rnqhqaltjs/9th-aos-prography-quest/assets/86480696/d26b0ba4-344d-4e7c-a98b-2bda1096108f" width="500" height="400"/>
 
 Hilt 라이브러리로 각 모듈별로 의존성을 주입하였습니다.  
 화면 구성은 하나의 액티비티와 두개의 프래그먼트 하나의 다이얼로그 프래그먼트로 나뉘어집니다.  
