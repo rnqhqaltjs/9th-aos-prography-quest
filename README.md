@@ -24,6 +24,9 @@ Paging3 라이브러리와 LoadStateHandle을 이용해서 페이징이 로딩�
 
 
 ## RandomPhoto
+
+![device-2024-02-03-021606-ezgif com-resize](https://github.com/rnqhqaltjs/9th-aos-prography-quest/assets/86480696/57fec832-6ebc-4515-9cae-ff9b9bf1e6e7)  
+
 무작위 사진을 요청받아 5개의 랜덤한 사진을 표시합니다.  
 
 
@@ -43,7 +46,7 @@ X 이미지를 터치하면 현재 창을 나가 뒤로 돌아갑니다.
 Room DB에 북마크한 데이터가 저장되어있는지 여부에 따라 북마크 버튼 색이 달라집니다.  
 (StateFlow로 북마크 버튼을 누를때마다 데이터 변화를 감지하여 북마크 버튼의 색을 바꿉니다.)
 
-### 해결하지 못한 문제
+## 해결하지 못한 문제
 
 ![device-2024-02-03-020344-ezgif com-resize](https://github.com/rnqhqaltjs/9th-aos-prography-quest/assets/86480696/6ad2e9c9-1150-41f2-831c-b4151f894fdc)
 
