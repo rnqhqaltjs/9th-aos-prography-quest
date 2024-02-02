@@ -19,7 +19,7 @@ BookmarkEntity
 Room DB에서 사용되는 엔티티로 이미지를 북마크 할때 값을 저장하기 위해 사용합니다.
 
 ## Home
-리사이클러뷰는 
+![device-2024-02-03-025111-ezgif com-resize](https://github.com/rnqhqaltjs/9th-aos-prography-quest/assets/86480696/81cdce87-6e77-49e7-8932-0bcdd946d021)  
 Paging3 라이브러리와 LoadStateHandle을 이용해서 페이징이 로딩중일 때는 스켈레톤 UI가 보이고 로딩이 완료되면 리사이클러뷰가 보이도록 구현하였습니다.  
 
 
