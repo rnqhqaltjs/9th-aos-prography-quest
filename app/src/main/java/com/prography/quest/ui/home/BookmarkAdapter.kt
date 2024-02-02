@@ -6,8 +6,14 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.facebook.shimmer.Shimmer
+import com.facebook.shimmer.ShimmerDrawable
+import com.prography.quest.R
 import com.prography.quest.data.model.BookmarkEntity
+import com.prography.quest.data.model.photosresponse.PhotosResponseItem
 import com.prography.quest.databinding.ItemBookmarkBinding
+import com.prography.quest.util.Constants
+import com.prography.quest.util.createShimmerDrawable
 
 class BookmarkAdapter : ListAdapter<BookmarkEntity, BookmarkAdapter.BookmarkViewHolder>(BookmarkDiffCallback) {
 
@@ -20,12 +26,23 @@ class BookmarkAdapter : ListAdapter<BookmarkEntity, BookmarkAdapter.BookmarkView
     override fun onBindViewHolder(holder: BookmarkViewHolder, position: Int) {
         val itemView = currentList[position]
         holder.bind(itemView)
+        holder.itemView.setOnClickListener {
+            onItemClickListener?.let { it(itemView) }
+        }
     }
 
     inner class BookmarkViewHolder(private val binding: ItemBookmarkBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(itemView: BookmarkEntity) {
-            binding.ivPhoto.load(itemView.imageUrl)
+
+            binding.ivPhoto.load(itemView.imageUrl) {
+                placeholder(createShimmerDrawable())
+            }
         }
+    }
+
+    private var onItemClickListener: ((BookmarkEntity) -> Unit)? = null
+    fun setOnItemClickListener(listener: (BookmarkEntity) -> Unit) {
+        onItemClickListener = listener
     }
 
     companion object {
