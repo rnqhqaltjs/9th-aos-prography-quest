@@ -47,7 +47,8 @@ Room DB에 북마크한 데이터가 저장되어있는지 여부에 따라 북�
 
 ![device-2024-02-03-020344-ezgif com-resize](https://github.com/rnqhqaltjs/9th-aos-prography-quest/assets/86480696/6ad2e9c9-1150-41f2-831c-b4151f894fdc)
 
-Photo 리사이클러뷰를 스크롤하면 전체 페이지가 스크롤 되지 않고 Photo 리사이클러뷰만 스크롤 되는 문제
+Photo 리사이클러뷰를 스크롤하면 전체 페이지가 스크롤 되지 않고 Photo 리사이클러뷰만 스크롤 되는 문제  
+
 이 문제를 해결하기 위해 리사이클러뷰의 스크롤을 비활성화 하면 페이징이 로드 되지않고 NestedScrollView를 쓰면 모든 데이터를 한꺼번에 불러오는 문제가 발생합니다.
 
 ### 배운점
