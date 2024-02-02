@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.prography.quest.R
@@ -34,7 +33,7 @@ class PhotoPagingAdapter : PagingDataAdapter<PhotosResponseItem, PhotoPagingAdap
             binding.ivPhoto.load(itemView.urls.regular) {
                 placeholder(R.drawable.skeleton_loading_img_2)
             }
-//            binding.tvPhotoTitle.text = itemView.currentUserCollections.map { it.title }.toString()
+            binding.tvPhotoTitle.text = itemView.user.username
         }
     }
 

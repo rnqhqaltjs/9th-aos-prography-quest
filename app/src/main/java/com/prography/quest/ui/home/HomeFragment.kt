@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -11,14 +13,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.prography.quest.data.model.BookmarkEntity
 import com.prography.quest.databinding.FragmentHomeBinding
-import com.prography.quest.ui.randomphoto.RandomPhotoFragmentDirections
-import com.prography.quest.util.UiState
 import com.prography.quest.util.hide
 import com.prography.quest.util.show
 import dagger.hilt.android.AndroidEntryPoint
@@ -62,15 +60,33 @@ class HomeFragment : Fragment() {
             }
         }
 
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 homeViewModel.bookmarkPhoto.collect {
-                    bookmarkAdapter.submitList(it)
+                    when (it) {
+                        is HomeViewModel.UIState.Loading -> {
+                            binding.BookmarkRecyclerView.hide(requireActivity())
+                        }
+                        is HomeViewModel.UIState.Success -> {
+                            bookmarkAdapter.submitList(it.data)
+                            delay(100)
 
-//                    if (bookmarkAdapter.itemCount <= 0) {
-//                        binding.bookmarkHeader.hide(requireActivity())
-//                        binding.BookmarkRecyclerView.hide(requireActivity())
-//                    }
+                            binding.bookmarkSkeletonUi.stopShimmer()
+                            binding.bookmarkSkeletonUi.hide(requireActivity())
+
+                            if (bookmarkAdapter.itemCount <= 0) {
+                                binding.bookmarkHeader.hide(requireActivity())
+                                binding.BookmarkRecyclerView.hide(requireActivity())
+                            } else {
+                                binding.bookmarkHeader.show(requireActivity())
+                                binding.BookmarkRecyclerView.show(requireActivity())
+                            }
+                        }
+
+                        is HomeViewModel.UIState.Error -> {
+                            Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                        }
+                    }
                 }
             }
         }
@@ -81,7 +97,9 @@ class HomeFragment : Fragment() {
         binding.PhotoRecyclerView.apply {
             setHasFixedSize(true)
             layoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
-            adapter = photoPagingAdapter
+            adapter = photoPagingAdapter.withLoadStateFooter(
+                footer = PhotoLoadStateAdapter(photoPagingAdapter)
+            )
         }
         photoPagingAdapter.setOnItemClickListener {
             val action = HomeFragmentDirections.actionHomeFragmentToDetailPhotoDialog(
@@ -110,22 +128,20 @@ class HomeFragment : Fragment() {
 
     private fun setupLoadState() {
         photoPagingAdapter.addLoadStateListener { combinedLoadStates ->
-            if(combinedLoadStates.source.refresh is LoadState.Loading) {
-                binding.photoSkeletonUi.startShimmer()
-                binding.photoSkeletonUi.show(requireActivity())
+            val loadState = combinedLoadStates.source
+            if (loadState.refresh is LoadState.Loading) {
                 binding.PhotoRecyclerView.hide(requireActivity())
+                binding.progressBar.isVisible = combinedLoadStates.source.refresh is LoadState.Loading
             }
 
-            if(combinedLoadStates.source.refresh is LoadState.NotLoading) {
+            if (loadState.refresh is LoadState.NotLoading) {
                 lifecycleScope.launch {
                     delay(500)
                     binding.photoSkeletonUi.stopShimmer()
                     binding.photoSkeletonUi.hide(requireActivity())
                     binding.PhotoRecyclerView.show(requireActivity())
                 }
-
             }
-
         }
     }
 

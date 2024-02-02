@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,7 +9,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/imageView"
@@ -27,14 +27,51 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:src="@drawable/bookmark_header"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/BookmarkRecyclerView"
+        <RelativeLayout
+            android:id="@+id/bookmark_ui"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_margin="10dp"
-            app:layout_constraintTop_toBottomOf="@+id/bookmark_header" />
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/bookmark_header">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/BookmarkRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp" />
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/bookmark_skeleton_ui"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:shimmer_auto_start="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <include layout="@layout/item_bookmark_skeleton_1" />
+
+                    <include layout="@layout/item_bookmark_skeleton_2" />
+
+                    <include layout="@layout/item_bookmark_skeleton_1" />
+
+
+                </LinearLayout>
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+        </RelativeLayout>
+
 
         <ImageView
             android:id="@+id/image_header"
@@ -42,7 +79,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:src="@drawable/image_header"
-            app:layout_constraintTop_toBottomOf="@+id/BookmarkRecyclerView" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bookmark_ui" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/PhotoRecyclerView"
@@ -52,17 +90,18 @@
             app:layout_constraintTop_toBottomOf="@+id/image_header" />
 
         <com.facebook.shimmer.ShimmerFrameLayout
-            android:id="@+id/sfl_sample"
+            android:id="@+id/photo_skeleton_ui"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_margin="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/image_header">
+            app:layout_constraintTop_toBottomOf="@+id/image_header"
+            app:shimmer_auto_start="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="10dp"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -97,5 +136,16 @@
 
         </com.facebook.shimmer.ShimmerFrameLayout>
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:indeterminateTint="@color/gray95"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginBottom="20dp"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.core.widget.NestedScrollView>
+</ScrollView>
