@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.prography.quest.data.model.BookmarkEntity
 import com.prography.quest.databinding.FragmentHomeBinding
+import com.prography.quest.util.collectLatestStateFlow
 import com.prography.quest.util.hide
 import com.prography.quest.util.show
 import dagger.hilt.android.AndroidEntryPoint
@@ -53,39 +54,20 @@ class HomeFragment : Fragment() {
     }
 
     private fun observe() {
-        viewLifecycleOwner.lifecycleScope.launch {
+        lifecycleScope.launch {
             homeViewModel.photosPaging.collectLatest {
                 photoPagingAdapter.submitData(it)
             }
         }
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                homeViewModel.bookmarkPhoto.collect {
-                    when (it) {
-                        is HomeViewModel.UIState.Loading -> {
-                            binding.BookmarkRecyclerView.hide(requireActivity())
-                        }
-                        is HomeViewModel.UIState.Success -> {
-                            bookmarkAdapter.submitList(it.data)
-
-                            binding.bookmarkSkeletonUi.stopShimmer()
-                            binding.bookmarkSkeletonUi.hide(requireActivity())
-
-                            if (it.data.isEmpty()) {
-                                binding.bookmarkHeader.hide(requireActivity())
-                                binding.BookmarkRecyclerView.hide(requireActivity())
-                            } else {
-                                binding.bookmarkHeader.show(requireActivity())
-                                binding.BookmarkRecyclerView.show(requireActivity())
-                            }
-                        }
-
-                        is HomeViewModel.UIState.Error -> {
-                            Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
-                        }
-                    }
+        collectLatestStateFlow(homeViewModel.bookmarkPhoto) {
+            when (it) {
+                is HomeViewModel.UIState.Loading -> binding.BookmarkRecyclerView.hide(requireActivity())
+                is HomeViewModel.UIState.Success -> {
+                    bookmarkAdapter.submitList(it.data)
+                    bookmarkView(it.data)
                 }
+                is HomeViewModel.UIState.Error -> Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -119,6 +101,19 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private fun bookmarkView(data:List<BookmarkEntity>) {
+        binding.bookmarkSkeletonUi.stopShimmer()
+        binding.bookmarkSkeletonUi.hide(requireActivity())
+
+        if (data.isEmpty()) {
+            binding.bookmarkHeader.hide(requireActivity())
+            binding.BookmarkRecyclerView.hide(requireActivity())
+        } else {
+            binding.bookmarkHeader.show(requireActivity())
+            binding.BookmarkRecyclerView.show(requireActivity())
+        }
+    }
+
     private fun setupLoadState() {
         photoPagingAdapter.addLoadStateListener { combinedLoadStates ->
             val loadState = combinedLoadStates.source
@@ -128,12 +123,9 @@ class HomeFragment : Fragment() {
             }
 
             if (loadState.refresh is LoadState.NotLoading) {
-                lifecycleScope.launch {
-                    delay(300)
-                    binding.photoSkeletonUi.stopShimmer()
-                    binding.photoSkeletonUi.hide(requireActivity())
-                    binding.PhotoRecyclerView.show(requireActivity())
-                }
+                binding.photoSkeletonUi.stopShimmer()
+                binding.photoSkeletonUi.hide(requireActivity())
+                binding.PhotoRecyclerView.show(requireActivity())
             }
         }
     }

@@ -15,6 +15,7 @@ import coil.load
 import com.prography.quest.R
 import com.prography.quest.databinding.DetailPhotoDialogBinding
 import com.prography.quest.util.UiState
+import com.prography.quest.util.collectLatestStateFlow
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -57,25 +58,18 @@ class DetailPhotoDialog : DialogFragment() {
     }
 
     private fun observer() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            photoDetailsViewModel.photoDetails.collectLatest {
-                when (it) {
-                    is UiState.Loading -> {
-                    }
-
-                    is UiState.Success -> {
-                        binding.apply {
-                            title.text = it.data.user.name
-                            userName.text = it.data.user.username
-                            photo.load(it.data.urls.regular)
-                            description.text = it.data.description
-                        }
-                    }
-
-                    is UiState.Failure -> {
-                        Toast.makeText(requireContext(), it.error, Toast.LENGTH_SHORT).show()
+        collectLatestStateFlow(photoDetailsViewModel.photoDetails) {
+            when (it) {
+                is UiState.Loading -> {}
+                is UiState.Success -> {
+                    binding.apply {
+                        title.text = it.data.user.name
+                        userName.text = it.data.user.username
+                        photo.load(it.data.urls.regular)
+                        description.text = it.data.description
                     }
                 }
+                is UiState.Failure -> Toast.makeText(requireContext(), it.error, Toast.LENGTH_SHORT).show()
             }
         }
     }

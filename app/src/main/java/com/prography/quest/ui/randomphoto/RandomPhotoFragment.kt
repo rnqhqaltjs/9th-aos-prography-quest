@@ -15,6 +15,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.prography.quest.data.model.BookmarkEntity
 import com.prography.quest.databinding.FragmentPhotoRandomBinding
 import com.prography.quest.util.UiState
+import com.prography.quest.util.collectLatestStateFlow
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -47,20 +48,11 @@ class RandomPhotoFragment : Fragment() {
     }
 
     private fun observer() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            randomPhotoViewModel.getRandomResult.collectLatest {
-                when (it) {
-                    is UiState.Loading -> {
-                    }
-
-                    is UiState.Success -> {
-                        randomPhotoAdapter.submitList(it.data)
-                    }
-
-                    is UiState.Failure -> {
-                        Toast.makeText(requireContext(), it.error, Toast.LENGTH_SHORT).show()
-                    }
-                }
+        collectLatestStateFlow(randomPhotoViewModel.getRandomResult) {
+            when (it) {
+                is UiState.Loading -> {}
+                is UiState.Success -> randomPhotoAdapter.submitList(it.data)
+                is UiState.Failure -> Toast.makeText(requireContext(), it.error, Toast.LENGTH_SHORT).show()
             }
         }
     }
