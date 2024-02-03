@@ -28,12 +28,12 @@ class RandomPhotoAdapter : ListAdapter<PhotosResponseItem, RandomPhotoAdapter.Ra
             binding.letterBox.load(itemView.urls.regular)
 
             binding.bookmarkBtn.setOnClickListener {
-                onBookmarkClickListener?.let { it(itemView, adapterPosition) }
+                onBookmarkClickListener?.let { it(itemView, bindingAdapterPosition) }
             }
 
             binding.exitBtn.setOnClickListener {
                 val newList = currentList.toMutableList()
-                newList.removeAt(adapterPosition)
+                newList.removeAt(bindingAdapterPosition)
                 submitList(newList)
             }
 

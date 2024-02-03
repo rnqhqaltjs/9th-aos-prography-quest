@@ -4,16 +4,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.findNavController
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import com.google.android.material.snackbar.Snackbar
 import com.prography.quest.data.model.BookmarkEntity
 import com.prography.quest.databinding.FragmentPhotoRandomBinding
+import com.prography.quest.util.UiState
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class RandomPhotoFragment : Fragment() {
@@ -38,8 +42,26 @@ class RandomPhotoFragment : Fragment() {
         randomPhotoViewModel.getRandomPhoto()
         setupRecyclerView()
 
-        randomPhotoViewModel.getRandomResult.observe(viewLifecycleOwner) {
-            randomPhotoAdapter.submitList(it)
+        observer()
+
+    }
+
+    private fun observer() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            randomPhotoViewModel.getRandomResult.collectLatest {
+                when (it) {
+                    is UiState.Loading -> {
+                    }
+
+                    is UiState.Success -> {
+                        randomPhotoAdapter.submitList(it.data)
+                    }
+
+                    is UiState.Failure -> {
+                        Toast.makeText(requireContext(), it.error, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
         }
     }
 
@@ -61,8 +83,8 @@ class RandomPhotoFragment : Fragment() {
                     clickedItem.id,
                     clickedItem.description,
                     clickedItem.urls.regular,
+                    clickedItem.user.name,
                     clickedItem.user.username,
-                    true
                 )
             )
             binding.RandomPhotoRecyclerView.smoothScrollToPosition(clickedPosition + 1)
@@ -74,8 +96,8 @@ class RandomPhotoFragment : Fragment() {
                             clickedItem.id,
                             clickedItem.description,
                             clickedItem.urls.regular,
+                            clickedItem.user.name,
                             clickedItem.user.username,
-                            true
                         )
                     )
                     binding.RandomPhotoRecyclerView.smoothScrollToPosition(clickedPosition)
@@ -84,7 +106,9 @@ class RandomPhotoFragment : Fragment() {
         }
 
         randomPhotoAdapter.setOnInformationClickListener {
-            val action = RandomPhotoFragmentDirections.actionRandomPhotoFragmentToDetailPhotoDialog(it)
+            val action = RandomPhotoFragmentDirections.actionRandomPhotoFragmentToDetailPhotoDialog(
+                BookmarkEntity(it.id, it.description, it.urls.regular, it.user.name, it.user.username)
+            )
             findNavController().navigate(action)
         }
     }
