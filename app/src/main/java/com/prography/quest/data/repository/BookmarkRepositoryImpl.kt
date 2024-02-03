@@ -1,6 +1,6 @@
 package com.prography.quest.data.repository
 
-import com.prography.quest.data.db.BookmarkDatabase
+import com.prography.quest.data.local.BookmarkDatabase
 import com.prography.quest.data.model.BookmarkEntity
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject

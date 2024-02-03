@@ -3,9 +3,8 @@ package com.prography.quest.data.repository
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import androidx.paging.PagingSource
-import com.prography.quest.data.api.PhotoService
 import com.prography.quest.data.model.photosresponse.PhotosResponseItem
+import com.prography.quest.data.remote.PhotoService
 import com.prography.quest.util.Constants.PAGING_SIZE
 import kotlinx.coroutines.flow.Flow
 import retrofit2.Response

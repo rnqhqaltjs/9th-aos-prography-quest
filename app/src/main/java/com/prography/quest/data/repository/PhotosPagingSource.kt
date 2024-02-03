@@ -5,7 +5,7 @@ import android.os.Build
 import androidx.annotation.RequiresExtension
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.prography.quest.data.api.PhotoService
+import com.prography.quest.data.remote.PhotoService
 import com.prography.quest.data.model.photosresponse.PhotosResponseItem
 import com.prography.quest.util.Constants.PAGING_SIZE
 import java.io.IOException
