@@ -66,7 +66,7 @@ class DetailPhotoDialog : DialogFragment() {
                         title.text = it.data.user.name
                         userName.text = it.data.user.username
                         photo.load(it.data.urls.regular)
-                        description.text = it.data.description
+                        description.text = it.data.description ?: "No Description"
                     }
                 }
                 is UiState.Failure -> Toast.makeText(requireContext(), it.error, Toast.LENGTH_SHORT).show()
