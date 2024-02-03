@@ -25,7 +25,7 @@ class RandomPhotoViewModel @Inject constructor(
 
     fun getRandomPhoto() = viewModelScope.launch {
         try {
-            val response = randomPhotoRepository.getRandomPhoto(5)
+            val response = randomPhotoRepository.getRandomPhoto(10)
             val result = response.body()
             if (response.isSuccessful && result != null) {
                 _getRandomResult.value = UiState.Success(result)
