@@ -1,5 +1,5 @@
 # 프로그라피 9기 모바일 과제
-### Unsplash API를 이용한 Photo App
+### Unsplash API를 이용한 Photo App  
 
 ## 기본적인 구조
 
