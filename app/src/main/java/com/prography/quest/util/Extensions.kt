@@ -15,7 +15,7 @@ fun View.show(activity: Activity) {
 
 fun createShimmerDrawable(): ShimmerDrawable {
     val shimmer = Shimmer.AlphaHighlightBuilder()
-        .setDuration(800)
+        .setDuration(400)
         .setBaseAlpha(0.98f)
         .setHighlightAlpha(0.95f)
         .setDirection(Shimmer.Direction.LEFT_TO_RIGHT)
