@@ -20,20 +20,20 @@ class RandomPhotoViewModel @Inject constructor(
     private val bookmarkRepository: BookmarkRepository
 ) : ViewModel() {
 
-    private val _getRandomResult = MutableStateFlow<UiState<List<PhotosResponseItem>>>(UiState.Loading)
-    val getRandomResult = _getRandomResult.asStateFlow()
+    private val _randomResult = MutableStateFlow<UiState<List<PhotosResponseItem>>>(UiState.Loading)
+    val randomResult = _randomResult.asStateFlow()
 
     fun getRandomPhoto() = viewModelScope.launch {
         try {
             val response = randomPhotoRepository.getRandomPhoto(10)
             val result = response.body()
             if (response.isSuccessful && result != null) {
-                _getRandomResult.value = UiState.Success(result)
+                _randomResult.value = UiState.Success(result)
             } else {
-                _getRandomResult.value = UiState.Failure("Failed to load data")
+                _randomResult.value = UiState.Failure("Failed to load data")
             }
         } catch (e: Exception) {
-            _getRandomResult.value = UiState.Failure("Unexpected error occurred")
+            _randomResult.value = UiState.Failure("Unexpected error occurred")
         }
     }
 

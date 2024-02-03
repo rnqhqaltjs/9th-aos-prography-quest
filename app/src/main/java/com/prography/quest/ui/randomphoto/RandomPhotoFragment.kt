@@ -48,7 +48,7 @@ class RandomPhotoFragment : Fragment() {
     }
 
     private fun observer() {
-        collectLatestStateFlow(randomPhotoViewModel.getRandomResult) {
+        collectLatestStateFlow(randomPhotoViewModel.randomResult) {
             when (it) {
                 is UiState.Loading -> {}
                 is UiState.Success -> randomPhotoAdapter.submitList(it.data)
