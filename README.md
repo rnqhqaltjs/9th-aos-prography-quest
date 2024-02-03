@@ -26,10 +26,10 @@ Room DB에서 사용되는 엔티티로 북마크 할때 값을 저장하기 위
 
 ## Home
 ![device-2024-02-03-025111-ezgif com-resize](https://github.com/rnqhqaltjs/9th-aos-prography-quest/assets/86480696/81cdce87-6e77-49e7-8932-0bcdd946d021)  
-*페이지당 10개의 아이템을 최신순으로 보여주는 Photo 리사이클러뷰입니다.*  
-*Shimmer 라이브러리를 이용하여 로딩화면을 스켈레톤 UI으로 구성하였습니다.*  
-*Paging3 라이브러리를 이용해 무한 스크롤을 구현하였고 LoadStateHandle을 이용해서 로딩중일때는 로딩 상태를 다룹니다.*  
-*로딩이 완료되면 리사이클러뷰가 보이도록 구현하였습니다.*  
+*페이지당 10개의 아이템을 최신순으로 보여주는 Photo 리사이클러뷰입니다.
+*Shimmer 라이브러리를 이용하여 로딩화면을 스켈레톤 UI으로 구성하였습니다.
+*Paging3 라이브러리를 이용해 무한 스크롤을 구현하였고 LoadStateHandle을 이용해서 로딩중일때는 로딩 상태를 다룹니다.
+*로딩이 완료되면 리사이클러뷰가 보이도록 구현하였습니다.
 
 ![device-2024-02-03-040303-ezgif com-resize](https://github.com/rnqhqaltjs/9th-aos-prography-quest/assets/86480696/e505362f-35a2-4211-91c5-f0cad51ef6cf)  
 북마크 했던 사진들의 목록을 보여주는 Bookmark 리사이클러뷰입니다.  
