@@ -1,11 +1,11 @@
 package com.prography.quest.ui.detail
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
+import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -13,13 +13,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import coil.load
 import com.prography.quest.R
-import com.prography.quest.data.model.BookmarkEntity
 import com.prography.quest.databinding.DetailPhotoDialogBinding
 import com.prography.quest.util.UiState
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -41,24 +38,18 @@ class DetailPhotoDialog : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = DetailPhotoDialogBinding.inflate(inflater, container, false)
+        _binding = DataBindingUtil.inflate(inflater, R.layout.detail_photo_dialog, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.vm = photoDetailsViewModel
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.bookmark = args.bookmark
 
-        val bookmark = args.bookmark
-
-        photoDetailsViewModel.getPhotoDetails(bookmark.id)
-        bookmarkColor(bookmark.id)
-
+        photoDetailsViewModel.getPhotoDetails(args.bookmark.id)
         observer()
-
-        binding.bookmarkBtn.setOnClickListener {
-            photoDetailsViewModel.toggleBookmarkButton(bookmark)
-            bookmarkColor(bookmark.id)
-        }
 
         binding.exitBtn.setOnClickListener {
             findNavController().popBackStack()
@@ -73,28 +64,19 @@ class DetailPhotoDialog : DialogFragment() {
                     }
 
                     is UiState.Success -> {
-                        binding.userName.text = it.data.user.username
-                        binding.photo.load(it.data.urls.regular)
-                        binding.description.text = it.data.description
+                        binding.apply {
+                            title.text = it.data.user.name
+                            userName.text = it.data.user.username
+                            photo.load(it.data.urls.regular)
+                            description.text = it.data.description
+                        }
                     }
 
                     is UiState.Failure -> {
+                        Toast.makeText(requireContext(), it.error, Toast.LENGTH_SHORT).show()
                     }
                 }
             }
-        }
-    }
-
-    private fun bookmarkColor(id: String) {
-        lifecycleScope.launch {
-            val isBookmarked = photoDetailsViewModel.getIsBookmarked(id).first()
-
-            binding.bookmarkBtn.setColorFilter(
-                if (isBookmarked)
-                    ContextCompat.getColor(requireContext(), R.color.white)
-                else
-                    ContextCompat.getColor(requireContext(), R.color.gray95)
-            )
         }
     }
 
