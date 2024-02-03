@@ -22,7 +22,7 @@ Usplash API의 통신을 받아 이미지와 그외의 정보들을 보여주기
 
 BookmarkEntity  
 ![image](https://github.com/rnqhqaltjs/9th-aos-prography-quest/assets/86480696/28dd8992-17c6-4a66-9b63-eaa0ee8bf0a3)  
-Room DB에서 사용되는 엔티티로 이미지를 북마크 할때 값을 저장하기 위해 사용합니다.
+Room DB에서 사용되는 엔티티로 북마크 할때 값을 저장하기 위해 사용합니다.
 
 ## Home
 ![device-2024-02-03-025111-ezgif com-resize](https://github.com/rnqhqaltjs/9th-aos-prography-quest/assets/86480696/81cdce87-6e77-49e7-8932-0bcdd946d021)  
@@ -33,12 +33,8 @@ Paging3 라이브러리를 이용해 무한 스크롤을 구현하였고 LoadSta
 
 ![device-2024-02-03-040303-ezgif com-resize](https://github.com/rnqhqaltjs/9th-aos-prography-quest/assets/86480696/e505362f-35a2-4211-91c5-f0cad51ef6cf)  
 북마크 했던 사진들의 목록을 보여주는 Bookmark 리사이클러뷰입니다.  
-StateFlow로 BookmarkEntity의 리스트의 변화를 관찰해 아이템이 없다면 북마크 섹션을 없앱니다.  
-
-
 
 ## RandomPhoto
-
 ![device-2024-02-03-021606-ezgif com-resize](https://github.com/rnqhqaltjs/9th-aos-prography-quest/assets/86480696/57fec832-6ebc-4515-9cae-ff9b9bf1e6e7)  
 무작위 사진을 요청받아 5개의 랜덤한 사진을 표시합니다.  
 북마크 버튼을 터치하면 다음 사진으로 넘어가고 북마크가 완료됩니다.  
@@ -46,25 +42,20 @@ StateFlow로 BookmarkEntity의 리스트의 변화를 관찰해 아이템이 없
 스낵바의 취소를 누르면 방금 북마크한 사진을 취소할 수 있습니다.  
 
 ![device-2024-02-03-022447-ezgif com-resize](https://github.com/rnqhqaltjs/9th-aos-prography-quest/assets/86480696/c0e97393-5f1b-44f6-b4c5-d17c6cc43edd)  
-X 버튼을 터치하면 현재 사진을 없애고 다음 사진으로 넘어갑니다.  
-i 버튼을 터치하면 Detail 화면으로 넘어갑니다.
-
+"X" 버튼을 터치하면 현재 사진을 없애고 다음 사진으로 넘어갑니다.  
+"i" 버튼을 터치하면 Detail 화면으로 넘어갑니다.
 
 ## Detail
+![device-2024-02-03-124312-ezgif com-resize](https://github.com/rnqhqaltjs/9th-aos-prography-quest/assets/86480696/4aa47603-1df5-4226-8188-b30512b3c2d9)  
 Home과 RandomPhoto화면에서 터치한 이미지의 내용을 세부적으로 볼 수 있습니다.  
-
-X 이미지를 터치하면 현재 창을 나가 뒤로 돌아갑니다.  
-
+"X" 이미지를 터치하면 현재 창을 나가 뒤로 돌아갑니다.  
 북마크 버튼을 터치하면 이미지 내용을 북마크 하거나 해제할 수 있습니다.  
 Room DB에 북마크한 데이터가 저장되어있는지 여부에 따라 북마크 버튼 색이 달라집니다.  
-(StateFlow로 북마크 버튼을 누를때마다 데이터 변화를 감지하여 북마크 버튼의 색을 바꿉니다.)
 
 ## 해결하지 못한 문제
 
-![device-2024-02-03-020344-ezgif com-resize](https://github.com/rnqhqaltjs/9th-aos-prography-quest/assets/86480696/6ad2e9c9-1150-41f2-831c-b4151f894fdc)
-
+![device-2024-02-03-020344-ezgif com-resize](https://github.com/rnqhqaltjs/9th-aos-prography-quest/assets/86480696/6ad2e9c9-1150-41f2-831c-b4151f894fdc)  
 Photo 리사이클러뷰를 스크롤하면 전체 페이지가 스크롤 되지 않고 Photo 리사이클러뷰만 스크롤 되는 문제  
-
-이 문제를 해결하기 위해 리사이클러뷰의 스크롤을 비활성화 하면 페이징이 로드 되지않고 NestedScrollView를 쓰면 모든 데이터를 한꺼번에 불러오는 문제가 발생합니다.
+이 문제를 해결하기 위해 리사이클러뷰의 스크롤을 비활성화 하면 페이징이 로드 되지않고, NestedScrollView를 쓰면 모든 데이터를 한꺼번에 불러오는 문제가 발생합니다.
 
 ### 배운점
