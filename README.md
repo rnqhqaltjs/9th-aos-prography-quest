@@ -58,7 +58,7 @@ Room DB에서 사용되는 엔티티로 북마크 할때 값을 저장하기 위
 ~~*Photo 리사이클러뷰를 스크롤하면 전체 페이지가 스크롤 되지 않고 Photo 리사이클러뷰만 스크롤 되는 문제*~~  
 *~~이 문제를 해결하기 위해 리사이클러뷰의 스크롤을 비활성화 하면 페이징이 로드 되지않고, NestedScrollView를 쓰면 모든 데이터를 한꺼번에 불러오는 문제가 발생합니다.~~*  
 
-Constraintlayout -> Coordinatorlayout으로 수정하여 문제를 해결하였습니다.
+Constraintlayout -> Coordinatorlayout로 자식 뷰 간의 상호작용을 조율하여 문제를 해결하였습니다.
 
 ## 성장한 점  
 Detail화면 구성을 위해 생각하다가 Dialog를 떠올렸지만, Dialog는 적절하게 생명주기를 활용할 수 없어서 찾아보다 DialogFragment을 알게되었습니다.  
