@@ -1,5 +1,5 @@
 # 프로그라피 9기 모바일 과제
-
+Unsplash API를 이용한 Photo App
 
 ## 기본적인 구조
 
@@ -26,31 +26,31 @@ Room DB에서 사용되는 엔티티로 북마크 할때 값을 저장하기 위
 
 ## Home
 ![device-2024-02-03-025111-ezgif com-resize](https://github.com/rnqhqaltjs/9th-aos-prography-quest/assets/86480696/81cdce87-6e77-49e7-8932-0bcdd946d021)  
-페이지당 10개의 아이템을 최신순으로 보여주는 Photo 리사이클러뷰입니다.  
-Shimmer 라이브러리를 이용하여 로딩화면을 스켈레톤 UI으로 구성하였습니다.  
-Paging3 라이브러리를 이용해 무한 스크롤을 구현하였고 LoadStateHandle을 이용해서 로딩중일때는 로딩 상태를 다룹니다.  
-로딩이 완료되면 리사이클러뷰가 보이도록 구현하였습니다.  
+* 페이지당 10개의 아이템을 최신순으로 보여주는 Photo 리사이클러뷰입니다.
+* Shimmer 라이브러리를 이용하여 로딩화면을 스켈레톤 UI으로 구성하였습니다.
+* Paging3 라이브러리를 이용해 무한 스크롤을 구현하였고 LoadStateHandle을 이용해서 로딩중일때는 로딩 상태를 다룹니다.
+* 로딩이 완료되면 리사이클러뷰가 보이도록 구현하였습니다.
 
 ![device-2024-02-03-040303-ezgif com-resize](https://github.com/rnqhqaltjs/9th-aos-prography-quest/assets/86480696/e505362f-35a2-4211-91c5-f0cad51ef6cf)  
-북마크 했던 사진들의 목록을 보여주는 Bookmark 리사이클러뷰입니다.  
+* 북마크 했던 사진들의 목록을 보여주는 Bookmark 리사이클러뷰입니다.  
 
 ## RandomPhoto
 ![device-2024-02-03-021606-ezgif com-resize](https://github.com/rnqhqaltjs/9th-aos-prography-quest/assets/86480696/57fec832-6ebc-4515-9cae-ff9b9bf1e6e7)  
-무작위 사진을 요청받아 5개의 랜덤한 사진을 표시합니다.  
-북마크 버튼을 터치하면 다음 사진으로 넘어가고 북마크가 완료됩니다.  
-북마크가 완료되면 스낵바로 북마크가 완료되었다는 문구가 표시됩니다.  
-스낵바의 취소를 누르면 방금 북마크한 사진을 취소할 수 있습니다.  
+* 무작위 사진을 요청받아 5개의 랜덤한 사진을 표시합니다.  
+* 북마크 버튼을 터치하면 다음 사진으로 넘어가고 북마크가 완료됩니다.  
+* 북마크가 완료되면 스낵바로 북마크가 완료되었다는 문구가 표시됩니다.  
+* 스낵바의 취소를 누르면 방금 북마크한 사진을 취소할 수 있습니다.  
 
 ![device-2024-02-03-022447-ezgif com-resize](https://github.com/rnqhqaltjs/9th-aos-prography-quest/assets/86480696/c0e97393-5f1b-44f6-b4c5-d17c6cc43edd)  
-"X" 버튼을 터치하면 현재 사진을 없애고 다음 사진으로 넘어갑니다.  
-"i" 버튼을 터치하면 Detail 화면으로 넘어갑니다.
+* "X" 버튼을 터치하면 현재 사진을 없애고 다음 사진으로 넘어갑니다.  
+* "i" 버튼을 터치하면 Detail 화면으로 넘어갑니다.
 
 ## Detail
 ![device-2024-02-03-124312-ezgif com-resize](https://github.com/rnqhqaltjs/9th-aos-prography-quest/assets/86480696/4aa47603-1df5-4226-8188-b30512b3c2d9)  
-Home과 RandomPhoto화면에서 터치한 이미지의 내용을 세부적으로 볼 수 있습니다.  
-"X" 이미지를 터치하면 현재 창을 나가 뒤로 돌아갑니다.  
-북마크 버튼을 터치하면 이미지 내용을 북마크 하거나 해제할 수 있습니다.  
-Room DB에 북마크한 데이터가 저장되어있는지 여부에 따라 북마크 버튼 색이 달라집니다.  
+* Home과 RandomPhoto화면에서 터치한 이미지의 내용을 세부적으로 볼 수 있습니다.  
+* "X" 이미지를 터치하면 현재 창을 나가 뒤로 돌아갑니다.  
+* 북마크 버튼을 터치하면 이미지 내용을 북마크 하거나 해제할 수 있습니다.  
+* Room DB에 북마크한 데이터가 저장되어있는지 여부에 따라 북마크 버튼 색이 달라집니다.  
 
 ## 해결하지 못한 문제
 
