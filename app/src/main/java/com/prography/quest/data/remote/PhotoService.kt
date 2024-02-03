@@ -1,4 +1,4 @@
-package com.prography.quest.data.api
+package com.prography.quest.data.remote
 
 import com.prography.quest.data.model.photosresponse.PhotosResponseItem
 import com.prography.quest.util.Constants.CLIENT_ID

@@ -1,6 +1,5 @@
-package com.prography.quest.data.db
+package com.prography.quest.data.local
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert

@@ -2,7 +2,7 @@ package com.prography.quest.di
 
 import android.content.Context
 import androidx.room.Room
-import com.prography.quest.data.db.BookmarkDatabase
+import com.prography.quest.data.local.BookmarkDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -12,7 +12,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object AppModule {
+object DatabaseModule {
 
     // Room
     @Singleton

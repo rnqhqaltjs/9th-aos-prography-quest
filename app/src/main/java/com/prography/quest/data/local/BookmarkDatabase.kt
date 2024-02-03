@@ -1,4 +1,4 @@
-package com.prography.quest.data.db
+package com.prography.quest.data.local
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
