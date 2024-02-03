@@ -1,5 +1,7 @@
 package com.prography.quest.di
 
+import com.prography.quest.data.repository.BookmarkRepository
+import com.prography.quest.data.repository.BookmarkRepositoryImpl
 import com.prography.quest.data.repository.PhotosRepository
 import com.prography.quest.data.repository.PhotosRepositoryImpl
 import com.prography.quest.data.repository.RandomPhotoRepository
@@ -25,4 +27,10 @@ abstract class RepositoryModule {
     abstract fun bindRandomPhotoRepository(
         randomPhotoRepositoryImpl: RandomPhotoRepositoryImpl,
     ): RandomPhotoRepository
+
+    @Singleton
+    @Binds
+    abstract fun bindBookmarkRepository(
+        BookmarkRepositoryImpl: BookmarkRepositoryImpl,
+    ): BookmarkRepository
 }

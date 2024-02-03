@@ -1,7 +1,6 @@
 package com.prography.quest.di
 
-import com.prography.quest.data.api.PhotosService
-import com.prography.quest.data.api.RandomPhotoService
+import com.prography.quest.data.api.PhotoService
 import com.prography.quest.util.Constants.BASE_URL
 import dagger.Module
 import dagger.Provides
@@ -43,13 +42,8 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun providePhotosService(retrofit: Retrofit): PhotosService {
-        return retrofit.create(PhotosService::class.java)
+    fun providePhotoService(retrofit: Retrofit): PhotoService {
+        return retrofit.create(PhotoService::class.java)
     }
 
-    @Provides
-    @Singleton
-    fun provideRandomPhotoService(retrofit: Retrofit): RandomPhotoService {
-        return retrofit.create(RandomPhotoService::class.java)
-    }
 }
