@@ -15,5 +15,14 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:enforceStatusBarContrast" tools:targetApi="q">false</item>
         <!-- Customize your theme here. -->
+
+    </style>
+
+    <style name="dialog_fullscreen" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+
+        <item name="android:statusBarColor">#E0000000</item>
     </style>
 </resources>

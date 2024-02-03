@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">My Application</string>
     <string name="fragment_home">Home</string>
-    <string name="fragment_bookmark">Bookmark</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="fragment_random_photo">RandomPhoto</string>
+    <string name="detail_photo_dialog">Detail</string>
+    <string name="failure">Failed to load data</string>
+    <string name="exception">Unexpected error occurred</string>
 </resources>
