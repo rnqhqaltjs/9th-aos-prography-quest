@@ -8,7 +8,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
-        android:layout_height="140dp"
+        android:layout_height="wrap_content"
         app:cardCornerRadius="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -17,11 +17,23 @@
 
         <ImageView
             android:id="@+id/iv_photo"
-            android:scaleType="centerInside"
             android:layout_width="wrap_content"
-            android:adjustViewBounds="true"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="center"
             tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/tv_photo_title"
+            android:layout_width="128dp"
+            android:layout_height="38dp"
+            android:paddingStart="8dp"
+            android:paddingBottom="8dp"
+            android:textSize="12sp"
+            android:maxLines="2"
+            android:gravity="bottom"
+            android:layout_gravity="bottom"
+            android:text="타이틀은최대2줄까지"
+            android:textColor="@color/white" />
 
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

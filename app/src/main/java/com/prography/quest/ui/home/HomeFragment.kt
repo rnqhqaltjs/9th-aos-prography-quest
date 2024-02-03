@@ -50,7 +50,6 @@ class HomeFragment : Fragment() {
         setupRecyclerView()
         observe()
         setupLoadState()
-
     }
 
     private fun observe() {
@@ -69,12 +68,11 @@ class HomeFragment : Fragment() {
                         }
                         is HomeViewModel.UIState.Success -> {
                             bookmarkAdapter.submitList(it.data)
-                            delay(100)
 
                             binding.bookmarkSkeletonUi.stopShimmer()
                             binding.bookmarkSkeletonUi.hide(requireActivity())
 
-                            if (bookmarkAdapter.itemCount <= 0) {
+                            if (it.data.isEmpty()) {
                                 binding.bookmarkHeader.hide(requireActivity())
                                 binding.BookmarkRecyclerView.hide(requireActivity())
                             } else {
@@ -103,12 +101,7 @@ class HomeFragment : Fragment() {
         }
         photoPagingAdapter.setOnItemClickListener {
             val action = HomeFragmentDirections.actionHomeFragmentToDetailPhotoDialog(
-                BookmarkEntity(
-                    it.id,
-                    it.description,
-                    it.urls.regular,
-                    it.user.username
-                )
+                BookmarkEntity(it.id, it.description, it.urls.regular, it.user.name, it.user.username)
             )
             findNavController().navigate(action)
         }
@@ -136,7 +129,7 @@ class HomeFragment : Fragment() {
 
             if (loadState.refresh is LoadState.NotLoading) {
                 lifecycleScope.launch {
-                    delay(500)
+                    delay(300)
                     binding.photoSkeletonUi.stopShimmer()
                     binding.photoSkeletonUi.hide(requireActivity())
                     binding.PhotoRecyclerView.show(requireActivity())

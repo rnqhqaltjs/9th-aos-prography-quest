@@ -33,7 +33,7 @@ class PhotoPagingAdapter : PagingDataAdapter<PhotosResponseItem, PhotoPagingAdap
             binding.ivPhoto.load(itemView.urls.regular) {
                 placeholder(R.drawable.skeleton_loading_img_2)
             }
-            binding.tvPhotoTitle.text = itemView.user.username
+            binding.tvPhotoTitle.text = itemView.user.name
         }
     }
 
