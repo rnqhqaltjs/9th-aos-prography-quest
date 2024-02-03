@@ -1,6 +1,6 @@
 package com.prography.quest.di
 
-import com.prography.quest.data.api.PhotoService
+import com.prography.quest.data.remote.PhotoService
 import com.prography.quest.util.Constants.BASE_URL
 import dagger.Module
 import dagger.Provides
