@@ -115,7 +115,6 @@ class HomeFragment : Fragment() {
             val loadState = combinedLoadStates.source
             if (loadState.refresh is LoadState.Loading) {
                 binding.PhotoRecyclerView.hide(requireActivity())
-                binding.progressBar.isVisible = combinedLoadStates.source.refresh is LoadState.Loading
             }
 
             if (loadState.refresh is LoadState.NotLoading) {
