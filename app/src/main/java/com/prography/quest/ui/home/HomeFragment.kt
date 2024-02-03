@@ -54,10 +54,8 @@ class HomeFragment : Fragment() {
     }
 
     private fun observe() {
-        lifecycleScope.launch {
-            homeViewModel.photosPaging.collectLatest {
-                photoPagingAdapter.submitData(it)
-            }
+        collectLatestStateFlow(homeViewModel.photosPaging) {
+            photoPagingAdapter.submitData(it)
         }
 
         collectLatestStateFlow(homeViewModel.bookmarkPhoto) {
