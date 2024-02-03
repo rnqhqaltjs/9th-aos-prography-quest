@@ -14,5 +14,6 @@ data class BookmarkEntity(
     val description: String?,
     @ColumnInfo(name = "image_url")
     val imageUrl: String,
+    val title: String,
     val username: String
 ):Parcelable

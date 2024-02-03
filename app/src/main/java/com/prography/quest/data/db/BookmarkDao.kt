@@ -27,4 +27,7 @@ interface BookmarkDao {
 
     @Query("SELECT * FROM bookmarks WHERE id = :bookmarkId")
     fun getBookmarkDetail(bookmarkId: String): BookmarkEntity
+
+    @Query("SELECT EXISTS(SELECT * FROM bookmarks WHERE id = :bookmarkId)")
+    fun getBookmarkExist(bookmarkId: String): Flow<Boolean>
 }

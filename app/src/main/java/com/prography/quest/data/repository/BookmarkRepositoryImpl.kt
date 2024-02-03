@@ -1,6 +1,5 @@
 package com.prography.quest.data.repository
 
-import androidx.lifecycle.LiveData
 import com.prography.quest.data.db.BookmarkDatabase
 import com.prography.quest.data.model.BookmarkEntity
 import kotlinx.coroutines.flow.Flow
@@ -28,6 +27,10 @@ class BookmarkRepositoryImpl @Inject constructor(
 
     override fun getBookmarkDetail(id: String): BookmarkEntity {
         return db.bookmarkDao().getBookmarkDetail(id)
+    }
+
+    override fun getBookmarkExist(id: String): Flow<Boolean> {
+        return db.bookmarkDao().getBookmarkExist(id)
     }
 
 
