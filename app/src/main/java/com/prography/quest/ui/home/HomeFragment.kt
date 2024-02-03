@@ -14,6 +14,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.SimpleItemAnimator
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.prography.quest.data.model.BookmarkEntity
 import com.prography.quest.databinding.FragmentHomeBinding
@@ -75,8 +76,7 @@ class HomeFragment : Fragment() {
         binding.PhotoRecyclerView.apply {
             setHasFixedSize(true)
             layoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
-            adapter = photoPagingAdapter.withLoadStateFooter(
-                footer = PhotoLoadStateAdapter(photoPagingAdapter)
+            adapter = photoPagingAdapter.withLoadStateFooter(footer = PhotoLoadStateAdapter(photoPagingAdapter)
             )
         }
         photoPagingAdapter.setOnItemClickListener {
@@ -88,9 +88,7 @@ class HomeFragment : Fragment() {
 
         bookmarkAdapter = BookmarkAdapter()
         binding.BookmarkRecyclerView.apply {
-            setHasFixedSize(true)
-            layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = bookmarkAdapter
         }
         bookmarkAdapter.setOnItemClickListener {
