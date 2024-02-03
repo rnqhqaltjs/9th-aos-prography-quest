@@ -5,10 +5,15 @@
 
 <img src="https://github.com/rnqhqaltjs/9th-aos-prography-quest/assets/86480696/d26b0ba4-344d-4e7c-a98b-2bda1096108f" width="500" height="400"/>
 
-Hilt 라이브러리로 각 모듈별로 의존성을 주입하였습니다.  
 
+### Navigation  
 각 화면의 전환과 바텀 네비게이션은 Jetpack Navigation을 통해 구성하였으며, 다른 화면으로 데이터 전달이 필요할경우 SafeArgs를 사용하여 전달합니다.  
 
+### Observer Pattern  
+UIState와 StateFlow를 이용해 Loading, Success, Failure에 따라 UI를 적절하게 업데이트 하도록 구현하였습니다.
+
+### Dependency Injection  
+Hilt 라이브러리로 각 모듈별로 의존성을 주입하였습니다.  
 
 ### 주요 엔티티  
 PhotoResponseItem  
@@ -28,7 +33,7 @@ Paging3 라이브러리를 이용해 무한 스크롤을 구현하였고 LoadSta
 
 ![device-2024-02-03-040303-ezgif com-resize](https://github.com/rnqhqaltjs/9th-aos-prography-quest/assets/86480696/e505362f-35a2-4211-91c5-f0cad51ef6cf)  
 북마크 했던 사진들의 목록을 보여주는 Bookmark 리사이클러뷰입니다.  
-StateFlow의 관찰로 BookmarkEntity의 리스트의 변화를 관찰해 아이템이 없다면 북마크 섹션을 없앱니다.  
+StateFlow로 BookmarkEntity의 리스트의 변화를 관찰해 아이템이 없다면 북마크 섹션을 없앱니다.  
 
 
 
